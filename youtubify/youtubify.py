@@ -16,7 +16,10 @@ def get_tracks_from_playlists(username, sp):
             tracks = results['tracks']
             for i, item in enumerate(tracks['items']):
                 track = item['track']
-                trackList.append(dict(name=track['name'], id=track['id'], artist=track['artists'][0]['name']))
+                trackList.append(dict(id=track['id'],title=track['name'],
+                                        artist=track['artists'][0]['name'],
+                                        fulltitle=track['artists'][0]['name'] + ' - ' + track['name'],
+                                        duration_ms = track['duration_ms']))
 
     return trackList
 
