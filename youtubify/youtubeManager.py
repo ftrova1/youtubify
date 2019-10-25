@@ -19,13 +19,16 @@ def addVideoToPlaylist(youtube,videoID,playlistID):
                                                             }
                                                         }).execute()
 
-def findVideosBySongTitle(youtube, songTitle):
-    videoIds = []
-    request = youtube.search().list(q=songTitle, type='video', part='id', maxResults=2)
+def findVideosBySongTitle(youtube, songTitle, n):
+    request = youtube.search().list(q=songTitle, type='video', part='id', maxResults=n)
     videos = request.execute()
-    for vid in videos['items']:
-        videoIds.append(vid['id']['videoId'])
-    return videoIds
+    if n > 1 :
+        videoIds = []
+        for vid in videos['items']:
+            videoIds.append(vid['id']['videoId'])
+        return videoIds
+    else:
+        return videos['items'][0]['id']['videoId']
 
 def retrieveFirstVideo(youtube, videoIds):
     id = videoIds[0]

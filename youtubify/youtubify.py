@@ -32,12 +32,16 @@ def main (username):
     youtube = build(api_service_name, api_version, credentials=credentials)
 
     #Getting spotify trackList
-    results = get_tracks_from_playlists(username, sp)
-    print (json.dumps(results, indent=4))
-    ####################################
-    ####################################
-    ids = findVideosBySongTitle(youtube, 'Salmo')
-    retrieveFirstVideo(youtube,ids)
+    titles = []
+    spotifySongs = get_tracks_from_playlists(username, sp)
+    for song in spotifySongs:
+        titles.append(song['fulltitle'])
+    #print (json.dumps(spotifySongs, indent=4))
+    videos = []
+    for title in titles:
+        id = findVideosBySongTitle(youtube, title , 1)
+        videos.append(dict(title=title, id = id ))
+    print(videos)
 
 if __name__ == '__main__':
     print ('Starting...')
