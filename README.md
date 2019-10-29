@@ -1,3 +1,4 @@
+# YOUTUBIFY
 _________________________________________
 
 This is a personal use python project that allows me to synchronize my Spotify playlists to my Youtube ones.
