@@ -1,5 +1,4 @@
 
-
 def get_tracks_from_playlists(username, sp):
     playlists = sp.user_playlists(username)
     trackList = []

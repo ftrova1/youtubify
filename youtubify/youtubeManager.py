@@ -7,17 +7,19 @@ def getMyYoutubePlaylists(youtube):
     response = request.execute()
     print (json.dumps(response, indent=4))
 
-def addVideoToPlaylist(youtube,videoID,playlistID):
-    add_video_request=youtube.playlistItem().insert( part="snippet",
+def addVideosToPlaylist(youtube,videos,playlistID):
+    for video in videos:
+        add_video_request=youtube.playlistItems().insert( part="snippet",
                                                       body={
                                                             'snippet': {
                                                               'playlistId': playlistID,
                                                               'resourceId': {
                                                                       'kind': 'youtube#video',
-                                                                  'videoId': videoID
+                                                                      'videoId': video['id']
                                                                 }
                                                             }
                                                         }).execute()
+                                                        print('Video added: ', video['title'], ' - ', video['id'] )
 
 def findVideosBySongTitle(youtube, songTitle, n):
     request = youtube.search().list(q=songTitle, type='video', part='id', maxResults=n)
